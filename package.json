@@ -1,17 +1,20 @@
 {
   "name": "grandmother-gallery",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "io": "npm scripts/image-optimize.js"
   },
   "dependencies": {
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "glob": "13.0.6",
+    "react": "19.1.2",
+    "react-dom": "19.1.2",
+    "sharp": "0.34.3"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
