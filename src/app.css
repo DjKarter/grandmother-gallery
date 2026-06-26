@@ -1,101 +1,130 @@
 .app {
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #fafafa, #f0f0f0);
+  min-height: 100vh;
+  background-color: #FFFEF0;
+  background-image: radial-gradient(circle, rgba(245, 197, 24, 0.22) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
 }
 
 .header {
-    text-align: center;
-    padding: 48px 24px 32px;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  padding: 56px 24px 40px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(245, 197, 24, 0.22) 0%, transparent 65%),
+    radial-gradient(circle at 10% 50%, rgba(232, 160, 32, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 50%, rgba(232, 160, 32, 0.1) 0%, transparent 40%),
+    #FFFEF0;
+  border-bottom: 2px solid rgba(245, 197, 24, 0.35);
 }
 
 .header-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.order-btn-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 8px;
-}
-
-.order-btn-header:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-}
-
-.order-btn-header:active {
-    transform: translateY(0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .header h1 {
-    font-size: 42px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 0 0 12px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #1F1A14;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.02em;
+}
+
+.header-ornament {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5C518, transparent);
+  margin: 0 auto 16px;
 }
 
 .subtitle {
-    font-size: 18px;
-    color: #666;
-    margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: #6B5D3F;
+  margin: 0 0 28px;
+  font-style: italic;
+}
+
+.order-btn-header {
+  background: #F5C518;
+  color: #1F1A14;
+  border: none;
+  padding: 13px 32px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+  margin-top: 4px;
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.4);
+}
+
+.order-btn-header:hover {
+  background: #E8A020;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(232, 160, 32, 0.5);
+}
+
+.order-btn-header:active {
+  background: #D4900A;
+  transform: translateY(0);
 }
 
 main {
-    flex: 1;
+  flex: 1;
 }
 
 .footer {
-    text-align: center;
-    padding: 24px;
-    background: white;
-    color: #666;
-    font-size: 14px;
+  text-align: center;
+  padding: 28px 24px;
+  background: #F5C518;
+  color: #1F1A14;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 /* Планшет */
 @media (max-width: 1024px) {
-    .header h1 {
-        font-size: 32px;
-    }
+  .header {
+    padding: 36px 16px 28px;
+  }
 
-    .subtitle {
-        font-size: 16px;
-    }
+  .header h1 {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
 }
 
 /* Мобильные */
 @media (max-width: 768px) {
-    .header {
-        padding: 32px 16px 24px;
-    }
+  .header {
+    padding: 28px 16px 22px;
+  }
 
-    .order-btn-header {
-        font-size: 14px;
-        padding: 12px 24px;
-    }
+  .header h1 {
+    font-size: 26px;
+  }
 
-    .header h1 {
-        font-size: 28px;
-    }
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
 
-    .subtitle {
-        font-size: 14px;
-    }
+  .order-btn-header {
+    font-size: 11px;
+    padding: 11px 22px;
+  }
 
-    .footer {
-        padding: 16px;
-        font-size: 12px;
-    }
+  .footer {
+    padding: 18px 16px;
+    font-size: 12px;
+  }
 }

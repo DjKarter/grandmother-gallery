@@ -42,10 +42,11 @@ function App() {
       <div className="app">
         <header className="header">
           <div className="header-content">
-            <h1>🖼️ Картинная галерея</h1>
+            <h1>Картинная галерея</h1>
+            <div className="header-ornament" />
             <p className="subtitle">Нажмите на картину, чтобы рассмотреть её поближе</p>
             <button className="order-btn-header" onClick={handleOrderClick}>
-              🛒 Заказать картину
+              Заказать картину
             </button>
           </div>
         </header>
@@ -65,7 +66,7 @@ function App() {
         )}
 
         <footer className="footer">
-          <p>Листайте стрелками ⬅️ ➡️ | Закрыть: ESC</p>
+          <p>← → навигация &nbsp;·&nbsp; ESC закрыть &nbsp;·&nbsp; колесо зум</p>
         </footer>
 
         {showOrderPage && (

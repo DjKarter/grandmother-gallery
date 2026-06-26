@@ -1,91 +1,84 @@
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    padding: 24px;
-    max-width: 1400px;
-    margin: 0 auto;
+  columns: 3 280px;
+  column-gap: 20px;
+  padding: 40px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .gallery-item {
-    position: relative;
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  break-inside: avoid;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(31, 26, 20, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
 }
 
 .gallery-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(31, 26, 20, 0.18), 0 0 0 3px #F5C518;
 }
 
 .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .gallery-item-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-    padding: 20px 16px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(31, 26, 20, 0.78) 0%, transparent 100%);
+  padding: 28px 16px 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .gallery-item:hover .gallery-item-overlay {
-    opacity: 1;
+  opacity: 1;
 }
 
 .gallery-item-title {
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #FFFEF0;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Планшет */
 @media (max-width: 1024px) {
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 12px;
-        padding: 16px;
-    }
+  .gallery-grid {
+    columns: 2 220px;
+    column-gap: 16px;
+    padding: 24px;
+  }
+
+  .gallery-item {
+    margin-bottom: 16px;
+  }
 }
 
 /* Мобильные */
-@media (max-width: 768px) {
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        padding: 8px;
-    }
+@media (max-width: 600px) {
+  .gallery-grid {
+    columns: 2 140px;
+    column-gap: 10px;
+    padding: 12px;
+  }
 
-    .gallery-item {
-        border-radius: 8px;
-        aspect-ratio: 1 / 1;
-    }
+  .gallery-item {
+    margin-bottom: 10px;
+  }
 
-    .gallery-item-overlay {
-        display: none;
-    }
-}
-
-/* Маленькие телефоны */
-@media (max-width: 480px) {
-    .gallery-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .gallery-item {
-        aspect-ratio: 4 / 3;
-        border-radius: 8px;
-    }
+  .gallery-item-overlay {
+    display: none;
+  }
 }

@@ -1,199 +1,316 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 9, 4, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.modal-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* ─── Прогресс-бар ─── */
+.modal-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 1010;
 }
 
+.modal-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F5C518, #E8820C);
+  transition: width 0.3s ease;
+}
+
+/* ─── Верхняя панель (зум + закрыть) ─── */
+.modal-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: linear-gradient(to bottom, rgba(12, 9, 4, 0.7) 0%, transparent 100%);
+  z-index: 1010;
+  pointer-events: none;
+}
+
+.modal-top-bar > * {
+  pointer-events: all;
+}
+
+/* ─── Зум-контролы (в верхнем левом углу) ─── */
+.modal-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(12, 9, 4, 0.65);
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.zoom-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  opacity: 0.85;
+}
+
+.zoom-btn:hover:not(:disabled) {
+  background: rgba(245, 197, 24, 0.25);
+  opacity: 1;
+}
+
+.zoom-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.zoom-indicator {
+  color: rgba(255, 253, 240, 0.85);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 36px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Кнопка закрытия ─── */
 .modal-close {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease, transform 0.3s ease;
-    z-index: 1001;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
 }
 
 .modal-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+  background: rgba(245, 197, 24, 0.2);
+  border-color: rgba(245, 197, 24, 0.5);
+  transform: rotate(90deg);
 }
 
+/* ─── Стрелки навигации ─── */
 .modal-nav {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    cursor: pointer;
-    padding: 16px;
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease, transform 0.3s ease;
-    z-index: 1001;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  z-index: 1010;
+  backdrop-filter: blur(8px);
+}
+
+.modal-nav svg path {
+  transition: stroke 0.25s ease;
 }
 
 .modal-nav:hover:not(.disabled) {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%) scale(1.1);
+  background: rgba(245, 197, 24, 0.12);
+  border-color: rgba(245, 197, 24, 0.75);
+  box-shadow: 0 0 20px rgba(245, 197, 24, 0.2), inset 0 0 10px rgba(245, 197, 24, 0.08);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.modal-nav:hover:not(.disabled) svg path {
+  stroke: #F5C518;
 }
 
 .modal-nav.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
+  opacity: 0.18;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.modal-nav.disabled:hover {
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-}
+.modal-prev { left: 14px; }
+.modal-next { right: 14px; }
 
-.modal-prev {
-    left: 24px;
-}
-
-.modal-next {
-    right: 24px;
-}
-
+/* ─── Картинка — wrapper на весь экран ─── */
 .modal-image-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: calc(90vw - 48px);
-    max-height: calc(80vh - 120px);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  overflow: hidden;
 }
 
 .modal-image {
-    max-width: 100%;
-    max-height: calc(80vh - 120px);
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
-    animation: scaleIn 0.3s ease;
+  /* занимает весь viewport, с небольшим отступом под контролы */
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* padding создаёт пространство для стрелок и панелей */
+  padding: 56px 60px 88px;
+  box-sizing: border-box;
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 @keyframes scaleIn {
-    from {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+  from { transform: scale(0.93); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.modal-caption {
-    position: fixed;
-    bottom: 48px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    max-width: 90%;
-    padding: 16px 24px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
+/* ─── Спиннер ─── */
+.modal-spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
-.modal-caption h3 {
-    margin: 0 0 8px 0;
-    font-size: 20px;
-    font-weight: 600;
+.spinner-ring {
+  width: 40px;
+  height: 40px;
+  border: 2.5px solid rgba(245, 197, 24, 0.15);
+  border-top-color: #F5C518;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
 }
 
-.modal-caption p {
-    margin: 0;
-    font-size: 16px;
-    opacity: 0.8;
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Нижняя полоса: название + счётчик ─── */
+.modal-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 52px 80px 22px;
+  background: linear-gradient(to top, rgba(12, 9, 4, 0.9) 0%, transparent 100%);
+  z-index: 1010;
+  pointer-events: none;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFEF0;
+  margin: 0 0 4px;
+  letter-spacing: 0.01em;
+}
+
+.modal-desc {
+  font-size: 13px;
+  color: rgba(255, 253, 240, 0.55);
+  font-style: italic;
+  margin: 0 0 10px;
 }
 
 .modal-indicator {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(245, 197, 24, 0.7);
+  letter-spacing: 0.1em;
 }
 
-/* Мобильные */
-@media (max-width: 768px) {
-    .modal-nav {
-        width: 56px;
-        height: 56px;
-        padding: 12px;
-    }
+/* ═══════════════════════════
+   Планшет
+   ═══════════════════════════ */
+@media (max-width: 1024px) {
+  .modal-image {
+    padding: 52px 50px 80px;
+  }
 
-    .modal-close {
-        width: 40px;
-        height: 40px;
-        padding: 6px;
-        top: 16px;
-        right: 16px;
-    }
+  .modal-nav {
+    width: 44px;
+    height: 44px;
+  }
 
-    .modal-prev {
-        left: 12px;
-    }
+  .modal-prev { left: 8px; }
+  .modal-next { right: 8px; }
 
-    .modal-next {
-        right: 12px;
-    }
+  .modal-bottom {
+    padding: 44px 60px 18px;
+  }
 
-    .modal-caption h3 {
-        font-size: 16px;
-    }
+  .modal-title {
+    font-size: 17px;
+  }
+}
 
-    .modal-caption p {
-        font-size: 14px;
-    }
+/* ═══════════════════════════
+   Мобильные
+   ═══════════════════════════ */
+@media (max-width: 600px) {
+  .modal-image {
+    padding: 48px 44px 72px;
+  }
 
-    .modal-indicator {
-        font-size: 12px;
-    }
+  .modal-nav {
+    width: 38px;
+    height: 38px;
+  }
+
+  .modal-nav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .modal-prev { left: 5px; }
+  .modal-next { right: 5px; }
+
+  .modal-top-bar {
+    padding: 10px 12px;
+  }
+
+  .modal-close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .modal-bottom {
+    padding: 36px 50px 14px;
+  }
+
+  .modal-title {
+    font-size: 15px;
+  }
+
+  .modal-desc {
+    display: none;
+  }
 }

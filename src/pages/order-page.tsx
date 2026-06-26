@@ -1,28 +1,52 @@
 import React, { useState, useCallback } from 'react';
 import './order-page.css';
-import type {OrderPageProps} from "./types.ts";
+import type { OrderPageProps } from './types.ts';
 
+const FORMSPREE_ID = 'xvzjkdwj';
 
 export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    // Здесь можно добавить отправку формы на сервер
-    console.log('Order submitted:', formData);
-    setIsSubmitted(true);
-  }, [formData]);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Имя: formData.name,
+          Телефон: formData.phone,
+          Email: formData.email,
+          Сообщение: formData.message,
+          Картина: selectedImage?.title ?? '—',
+          _subject: `Заказ картины: ${selectedImage?.title ?? 'не выбрана'}`,
+          _replyto: formData.email,
+        }),
+      });
+
+      if (res.ok) {
+        setIsSubmitted(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError((data as { error?: string }).error ?? 'Не удалось отправить. Попробуйте позже.');
+      }
+    } catch {
+      setError('Ошибка соединения. Проверьте интернет и попробуйте снова.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [formData, selectedImage]);
 
   if (isSubmitted) {
     return (
@@ -70,6 +94,7 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
               onChange={handleInputChange}
               placeholder="Как к вам обращаться"
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -83,6 +108,7 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
               onChange={handleInputChange}
               placeholder="+7 (999) 000-00-00"
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -95,6 +121,7 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
               value={formData.email}
               onChange={handleInputChange}
               placeholder="vashe@pochta.ru"
+              disabled={isSubmitting}
             />
           </div>
 
@@ -107,11 +134,14 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
               onChange={handleInputChange}
               placeholder="Хочу заказать эту картину... или другой вопрос"
               rows={4}
+              disabled={isSubmitting}
             />
           </div>
 
-          <button type="submit" className="order-btn">
-            Отправить заказ
+          {error && <p className="order-error">{error}</p>}
+
+          <button type="submit" className={`order-btn ${isSubmitting ? 'order-btn--loading' : ''}`} disabled={isSubmitting}>
+            {isSubmitting ? 'Отправляем…' : 'Отправить заказ'}
           </button>
         </form>
       </div>
