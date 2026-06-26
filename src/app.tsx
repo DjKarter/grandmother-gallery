@@ -1,14 +1,32 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { GalleryGrid } from './components/gallary-grid';
 import { ImageModal } from './components/image-modal';
 import { OrderPage } from './pages/order-page.tsx';
+import { AboutPage } from './pages/about-page.tsx';
 import './app.css';
 import { galleryImages } from "./data/gallery-data.ts";
-import type {GalleryImage} from "./common/types";
+import type { GalleryImage } from "./common/types";
+
+type View = 'gallery' | 'about' | 'order';
 
 function App() {
+  const [currentView, setCurrentView] = useState<View>('gallery');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const [showOrderPage, setShowOrderPage] = useState(false);
+  const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const navigateTo = useCallback((view: View) => {
+    if (view === currentView) return;
+    if (transitionTimer.current) clearTimeout(transitionTimer.current);
+
+    setSelectedImageIndex(null);
+    setIsTransitioning(true);
+
+    transitionTimer.current = setTimeout(() => {
+      setCurrentView(view);
+      setIsTransitioning(false);
+    }, 220);
+  }, [currentView]);
 
   const handleImageClick = useCallback((image: GalleryImage) => {
     const index = galleryImages.findIndex((img) => img.id === image.id);
@@ -33,49 +51,63 @@ function App() {
     });
   }, []);
 
-  const handleOrderClick = useCallback(() => {
-    setShowOrderPage(true);
-    setSelectedImageIndex(null);
-  }, []);
-
   return (
-      <div className="app">
-        <header className="header">
-          <div className="header-content">
-            <h1>Картинная галерея</h1>
-            <div className="header-ornament" />
-            <p className="subtitle">Нажмите на картину, чтобы рассмотреть её поближе</p>
-            <button className="order-btn-header" onClick={handleOrderClick}>
-              Заказать картину
+    <div className="app">
+      <header className="header">
+        <div className="header-content">
+          <h1>Картинная галерея</h1>
+          <div className="header-ornament" />
+          <p className="subtitle">Нажмите на картину, чтобы рассмотреть её поближе</p>
+          <nav className="header-nav">
+            <button
+              className={`nav-link ${currentView === 'gallery' ? 'nav-link--active' : ''}`}
+              onClick={() => navigateTo('gallery')}
+            >
+              Галерея
             </button>
-          </div>
-        </header>
+            <span className="header-nav-sep">·</span>
+            <button
+              className={`nav-link ${currentView === 'about' ? 'nav-link--active' : ''}`}
+              onClick={() => navigateTo('about')}
+            >
+              Об авторе
+            </button>
+            <span className="header-nav-sep">·</span>
+            <button
+              className={`nav-link nav-link--order ${currentView === 'order' ? 'nav-link--active' : ''}`}
+              onClick={() => navigateTo('order')}
+            >
+              Заказать
+            </button>
+          </nav>
+        </div>
+      </header>
 
-        <main>
+      <main className={`main-content ${isTransitioning ? 'main-content--out' : ''}`}>
+        {currentView === 'gallery' && (
           <GalleryGrid images={galleryImages} onImageClick={handleImageClick} />
-        </main>
-
-        {selectedImageIndex !== null && (
-            <ImageModal
-                images={galleryImages}
-                currentIndex={selectedImageIndex}
-                onClose={handleCloseModal}
-                onPrev={handlePrev}
-                onNext={handleNext}
-            />
         )}
-
-        <footer className="footer">
-          <p>← → навигация &nbsp;·&nbsp; ESC закрыть &nbsp;·&nbsp; колесо зум</p>
-        </footer>
-
-        {showOrderPage && (
+        {currentView === 'about' && <AboutPage />}
+        {currentView === 'order' && (
           <OrderPage
-            onClose={() => setShowOrderPage(false)}
-            selectedImage={selectedImageIndex !== null ? galleryImages[selectedImageIndex] : undefined}
+            onClose={() => navigateTo('gallery')}
+            selectedImage={undefined}
           />
         )}
-      </div>
+      </main>
+
+      {currentView === 'gallery' && selectedImageIndex !== null && (
+        <ImageModal
+          images={galleryImages}
+          currentIndex={selectedImageIndex}
+          onClose={handleCloseModal}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
+      )}
+
+      <footer className="footer" id="about-footer" />
+    </div>
   );
 }
 

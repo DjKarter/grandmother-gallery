@@ -65,12 +65,6 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
 
   return (
     <div className="order-page">
-      <button className="order-close" onClick={onClose} aria-label="Закрыть">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      </button>
-
       <div className="order-content">
         <h1>Заказать картину</h1>
 

@@ -47,45 +47,95 @@
   font-style: italic;
 }
 
-.order-btn-header {
-  background: #F5C518;
-  color: #1F1A14;
+/* ─── Навигация в шапке ─── */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.nav-link {
+  background: none;
   border: none;
-  padding: 13px 32px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s ease;
-  margin-top: 4px;
-  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.4);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B5D3F;
+  padding: 8px 14px;
+  transition: color 0.2s ease;
+  text-decoration: none;
 }
 
-.order-btn-header:hover {
-  background: #E8A020;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(232, 160, 32, 0.5);
+.nav-link:hover {
+  color: #1F1A14;
 }
 
-.order-btn-header:active {
-  background: #D4900A;
-  transform: translateY(0);
+.nav-link--active {
+  color: #1F1A14;
 }
 
-main {
+.nav-link--order {
+  color: #C47800;
+  position: relative;
+}
+
+.nav-link--order::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 1.5px;
+  background: #F5C518;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+  transform-origin: center;
+}
+
+.nav-link--order:hover {
+  color: #A06000;
+}
+
+.nav-link--order:hover::after {
+  transform: scaleX(1);
+}
+
+.header-nav-sep {
+  color: rgba(245, 197, 24, 0.7);
+  font-size: 16px;
+  user-select: none;
+  line-height: 1;
+}
+
+/* ─── Переходы между страницами ─── */
+.main-content {
   flex: 1;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  animation: viewFadeIn 0.28s ease;
+}
+
+.main-content--out {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+@keyframes viewFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .footer {
-  text-align: center;
-  padding: 28px 24px;
-  background: #F5C518;
-  color: #1F1A14;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  height: 56px;
+  background-color: #F5C518;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg transform='translate(32,32)'%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(45)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(90)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(135)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(180)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(225)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(270)'/%3E%3Cellipse rx='3.5' ry='10' cy='-15' fill='%23B86E00' opacity='0.4' transform='rotate(315)'/%3E%3Ccircle r='7' fill='%237A4500' opacity='0.45'/%3E%3Ccircle r='4.5' fill='%23603200' opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
 /* Планшет */
@@ -118,13 +168,16 @@ main {
     margin-bottom: 20px;
   }
 
-  .order-btn-header {
-    font-size: 11px;
-    padding: 11px 22px;
+  .header-nav {
+    margin-top: 6px;
+  }
+
+  .nav-link {
+    font-size: 10px;
+    padding: 6px 10px;
   }
 
   .footer {
-    padding: 18px 16px;
-    font-size: 12px;
+    height: 44px;
   }
 }
