@@ -1,5 +1,5 @@
 
-import {type FC, useEffect, useState, useRef, type MouseEvent, type WheelEvent} from 'react';
+import {type FC, useEffect, useLayoutEffect, useState, useRef, type MouseEvent, type WheelEvent} from 'react';
 import './image-modal.css';
 import type {ImageModalProps} from "./types.ts";
 
@@ -20,7 +20,7 @@ export const ImageModal: FC<ImageModalProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
 
     // Сброс зума и показ спиннера при смене картинки
-    useEffect(() => {
+    useLayoutEffect(() => {
         setScale(1);
         setPanPosition({ x: 0, y: 0 });
         setIsPanning(false);
@@ -34,6 +34,14 @@ export const ImageModal: FC<ImageModalProps> = ({
         if (currentIndex > 0) preload(images[currentIndex - 1].src);
         if (currentIndex < images.length - 1) preload(images[currentIndex + 1].src);
     }, [currentIndex, images]);
+
+    const handleZoomIn = () => {
+        setScale(s => Math.min(4, s + 0.5));
+    };
+
+    const handleZoomOut = () => {
+        setScale(s => Math.max(1, s - 0.5));
+    };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -70,7 +78,7 @@ export const ImageModal: FC<ImageModalProps> = ({
             window.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
         };
-    }, [currentIndex, onClose]);
+    }, [currentIndex, onClose, handleZoomIn, handleZoomOut]);
 
     const handleNextClick = () => {
         if (!isAnimating && onNext) {
@@ -96,14 +104,6 @@ export const ImageModal: FC<ImageModalProps> = ({
         const delta = e.deltaY > 0 ? -0.1 : 0.1;
         const newScale = Math.max(1, Math.min(4, scale + delta));
         setScale(newScale);
-    };
-
-    const handleZoomIn = () => {
-        setScale(s => Math.min(4, s + 0.5));
-    };
-
-    const handleZoomOut = () => {
-        setScale(s => Math.max(1, s - 0.5));
     };
 
     const handleResetZoom = () => {
@@ -254,25 +254,27 @@ export const ImageModal: FC<ImageModalProps> = ({
                         <div className="spinner-ring" />
                     </div>
                 )}
-                <img
-                    key={image.id}
-                    ref={imageRef}
-                    src={image.src}
-                    alt={image.alt}
-                    className="modal-image"
-                    style={{
-                        transform: `scale(${scale}) translate(${panPosition.x}px, ${panPosition.y}px)`,
-                        cursor: scale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default',
-                        opacity: isImageLoading ? 0 : 1,
-                        transition: 'opacity 0.3s ease, transform 0.1s ease-out',
-                    }}
-                    onLoad={() => setIsImageLoading(false)}
-                    onClick={(e) => e.stopPropagation()}
-                    onDoubleClick={handleDoubleClick}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                />
+                <picture key={image.id} style={{ display: 'contents' }}>
+                    <source srcSet={image.webpSrc} type="image/webp" />
+                    <img
+                        ref={imageRef}
+                        src={image.src}
+                        alt={image.alt}
+                        className="modal-image"
+                        style={{
+                            transform: `scale(${scale}) translate(${panPosition.x}px, ${panPosition.y}px)`,
+                            cursor: scale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default',
+                            opacity: isImageLoading ? 0 : 1,
+                            transition: 'opacity 0.3s ease, transform 0.1s ease-out',
+                        }}
+                        onLoad={() => setIsImageLoading(false)}
+                        onClick={(e) => e.stopPropagation()}
+                        onDoubleClick={handleDoubleClick}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                    />
+                </picture>
             </div>
 
             <button
