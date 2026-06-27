@@ -3,8 +3,7 @@ import type { GalleryImage } from '../common/types';
 export const galleryImages: GalleryImage[] = [
     {
         id: '1',
-        src: '/images/burguntia.png',
-        webpSrc: '/images/burguntia.webp',
+        name: 'burguntia',
         width: 2598,
         height: 2187,
         alt: 'Альпийские поля',
@@ -13,8 +12,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: '2',
-        src: '/images/fog-albion.png',
-        webpSrc: '/images/fog-albion.webp',
+        name: 'fog-albion',
         width: 1918,
         height: 1498,
         alt: 'Туманный Альбион',
@@ -23,8 +21,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: '3',
-        src: '/images/in-the-rocks.png',
-        webpSrc: '/images/in-the-rocks.webp',
+        name: 'in-the-rocks',
         width: 2612,
         height: 2643,
         alt: 'В скалах',
@@ -33,8 +30,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: '4',
-        src: '/images/japan-mountain.png',
-        webpSrc: '/images/japan-mountain.webp',
+        name: 'japan-mountain',
         width: 1755,
         height: 1799,
         alt: 'Японские горы',
@@ -43,8 +39,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: '5',
-        src: '/images/sad-tree.png',
-        webpSrc: '/images/sad-tree.webp',
+        name: 'sad-tree',
         width: 2380,
         height: 3483,
         alt: 'Закат',
@@ -53,8 +48,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: '6',
-        src: '/images/space.png',
-        webpSrc: '/images/space.webp',
+        name: 'space',
         width: 2665,
         height: 2718,
         alt: 'Космос',

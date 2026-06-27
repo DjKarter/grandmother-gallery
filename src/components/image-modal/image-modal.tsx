@@ -2,6 +2,7 @@
 import {type FC, useEffect, useLayoutEffect, useState, useRef, type MouseEvent, type WheelEvent} from 'react';
 import './image-modal.css';
 import type {ImageModalProps} from "./types.ts";
+import {getImagePaths} from "../../utils/image-paths.ts";
 
 export const ImageModal: FC<ImageModalProps> = ({
                                                     images,
@@ -27,12 +28,12 @@ export const ImageModal: FC<ImageModalProps> = ({
         setIsImageLoading(true);
     }, [currentIndex]);
 
-    // Прелоадинг соседних картин
+    // Прелоадинг соседних картин — загружаем именно webp, который будет рендериться
     useEffect(() => {
         if (currentIndex === null) return;
-        const preload = (src: string) => { new Image().src = src; };
-        if (currentIndex > 0) preload(images[currentIndex - 1].src);
-        if (currentIndex < images.length - 1) preload(images[currentIndex + 1].src);
+        const preload = (name: string) => { new Image().src = getImagePaths(name).fullWebp; };
+        if (currentIndex > 0) preload(images[currentIndex - 1].name);
+        if (currentIndex < images.length - 1) preload(images[currentIndex + 1].name);
     }, [currentIndex, images]);
 
     const handleZoomIn = () => {
@@ -187,6 +188,7 @@ export const ImageModal: FC<ImageModalProps> = ({
     }
 
     const image = images[currentIndex];
+    const imagePaths = getImagePaths(image.name);
     const isFirst = currentIndex === 0;
     const isLast = currentIndex === images.length - 1;
     const progress = ((currentIndex + 1) / images.length) * 100;
@@ -255,10 +257,10 @@ export const ImageModal: FC<ImageModalProps> = ({
                     </div>
                 )}
                 <picture key={image.id} style={{ display: 'contents' }}>
-                    <source srcSet={image.webpSrc} type="image/webp" />
+                    <source srcSet={imagePaths.fullWebp} type="image/webp" />
                     <img
                         ref={imageRef}
-                        src={image.src}
+                        src={imagePaths.fullPng}
                         alt={image.alt}
                         className="modal-image"
                         style={{

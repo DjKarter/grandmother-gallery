@@ -55,7 +55,7 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1>Картинная галерея</h1>
+          <h1>Галерея живописи</h1>
           <div className="header-ornament" />
           <p className="subtitle">Нажмите на картину, чтобы рассмотреть её поближе</p>
           <nav className="header-nav">

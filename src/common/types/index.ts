@@ -1,7 +1,6 @@
 export type GalleryImage = {
     id: string;
-    src: string;
-    webpSrc: string;
+    name: string;
     width?: number;
     height?: number;
     alt: string;
