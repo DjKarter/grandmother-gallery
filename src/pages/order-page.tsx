@@ -70,7 +70,7 @@ export const OrderPage: React.FC<OrderPageProps> = ({ onClose, selectedImage }) 
 
         {selectedImage && (
           <div className="selected-image">
-            <img src={selectedImage.src} alt={selectedImage.alt} />
+            <img src={`/images/${selectedImage.name}/2.png`} alt={selectedImage.alt} />
             <div className="selected-image-info">
               <strong>{selectedImage.title || selectedImage.alt}</strong>
             </div>
