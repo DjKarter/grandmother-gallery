@@ -10,43 +10,43 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '1',
         src: burguntia,
-        alt: 'Морской берег',
-        title: 'Спокойное море',
-        description: 'Закат у моря'
+        alt: 'Альпийские поля',
+        title: 'Альпийские поля',
+        description: 'Красивые поля близ гор'
     },
     {
         id: '2',
         src: fogAlbion,
-        alt: 'Горный пейзаж',
+        alt: 'Туманный Альбион',
         title: 'Туманный Альбион',
-        description: 'Величественные горы в тумане'
+        description: 'Кораблики, блуждающие в тумане'
     },
     {
         id: '3',
         src: inTheRocks,
-        alt: 'Лесная тропа',
+        alt: 'В скалах',
         title: 'В скалах',
-        description: 'Золотая осень'
+        description: 'Корабль заходит в бухту'
     },
     {
         id: '4',
         src: japanMountain,
-        alt: 'Горный пейзаж',
+        alt: 'Японские горы',
         title: 'Японские горы',
-        description: 'Уютные улочки'
+        description: 'Озеро близ Фудзи'
     },
     {
         id: '5',
         src: sadTree,
-        alt: 'Дерево',
-        title: 'Грустное дерево',
-        description: 'Кристально чистая вода'
+        alt: 'Закат',
+        title: 'Сумерки',
+        description: 'Дерево пытается ухватить последние лучики солнца'
     },
     {
         id: '6',
         src: space,
         alt: 'Космос',
-        title: 'Просторы',
-        description: 'Распустившиеся тюльпаны'
+        title: 'Галактика',
+        description: 'Завораживающие небесные просторы'
     },
 ];
