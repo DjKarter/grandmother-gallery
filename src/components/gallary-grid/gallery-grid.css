@@ -23,10 +23,31 @@
   box-shadow: 0 14px 36px rgba(31, 26, 20, 0.18), 0 0 0 3px #F5C518;
 }
 
+.gallery-item picture,
 .gallery-item img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.gallery-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 235, 227, 0.9) 25%,
+    rgba(220, 213, 203, 0.9) 50%,
+    rgba(240, 235, 227, 0.9) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  z-index: 1;
+  border-radius: 2px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .gallery-item-overlay {

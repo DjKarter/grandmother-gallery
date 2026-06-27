@@ -10,6 +10,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '1',
         src: BURGUNTIA.fallbackSrc,
+        width: 2598,
+        height: 2187,
         webpSrc: BURGUNTIA.webpSrc,
         webpSrcSet: BURGUNTIA.webpSrcSet,
         pngSrcSet: BURGUNTIA.pngSrcSet,
@@ -20,6 +22,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '2',
         src: FOG_ALBION.fallbackSrc,
+        width: 1918,
+        height: 1498,
         webpSrc: FOG_ALBION.webpSrc,
         webpSrcSet: FOG_ALBION.webpSrcSet,
         pngSrcSet: FOG_ALBION.pngSrcSet,
@@ -30,6 +34,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '3',
         src: IN_THE_ROCKS.fallbackSrc,
+        width: 2612,
+        height: 2643,
         webpSrc: IN_THE_ROCKS.webpSrc,
         webpSrcSet: IN_THE_ROCKS.webpSrcSet,
         pngSrcSet: IN_THE_ROCKS.pngSrcSet,
@@ -40,6 +46,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '4',
         src: JAPAN_MOUNTAIN.fallbackSrc,
+        width: 1755,
+        height: 1799,
         webpSrc: JAPAN_MOUNTAIN.webpSrc,
         webpSrcSet: JAPAN_MOUNTAIN.webpSrcSet,
         pngSrcSet: JAPAN_MOUNTAIN.pngSrcSet,
@@ -50,6 +58,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '5',
         src: SAD_TREE.fallbackSrc,
+        width: 2380,
+        height: 3483,
         webpSrc: SAD_TREE.webpSrc,
         webpSrcSet: SAD_TREE.webpSrcSet,
         pngSrcSet: SAD_TREE.pngSrcSet,
@@ -60,6 +70,8 @@ export const galleryImages: GalleryImage[] = [
     {
         id: '6',
         src: SPACE.fallbackSrc,
+        width: 2665,
+        height: 2718,
         webpSrc: SPACE.webpSrc,
         webpSrcSet: SPACE.webpSrcSet,
         pngSrcSet: SPACE.pngSrcSet,

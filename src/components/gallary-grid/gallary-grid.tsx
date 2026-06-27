@@ -1,9 +1,15 @@
 import './gallery-grid.css';
 import type {GalleryGridProps} from "./types.ts";
-import type {FC} from "react";
+import {useState, type FC} from "react";
 import {Image} from "../image/image.tsx";
 
 export const GalleryGrid: FC<GalleryGridProps> = ({ images, onImageClick }) => {
+    const [loadedIds, setLoadedIds] = useState<Set<string>>(new Set());
+
+    const handleLoad = (id: string) => {
+        setLoadedIds(prev => new Set(prev).add(id));
+    };
+
     return (
         <div className="gallery-grid">
             {images.map((image) => (
@@ -12,11 +18,17 @@ export const GalleryGrid: FC<GalleryGridProps> = ({ images, onImageClick }) => {
                     className="gallery-item"
                     onClick={() => onImageClick(image)}
                 >
+                    {!loadedIds.has(image.id) && (
+                        <div className="gallery-skeleton" />
+                    )}
                     <Image
                         src={image.src}
                         webpSrcSet={image.webpSrcSet}
                         pngSrcSet={image.pngSrcSet}
                         alt={image.alt}
+                        width={image.width}
+                        height={image.height}
+                        onLoad={() => handleLoad(image.id)}
                     />
                     {image.title && (
                         <div className="gallery-item-overlay">
