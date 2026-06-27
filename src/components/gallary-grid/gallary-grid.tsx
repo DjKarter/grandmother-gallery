@@ -23,8 +23,7 @@ export const GalleryGrid: FC<GalleryGridProps> = ({ images, onImageClick }) => {
                     )}
                     <Image
                         src={image.src}
-                        webpSrcSet={image.webpSrcSet}
-                        pngSrcSet={image.pngSrcSet}
+                        webpSrc={image.webpSrc}
                         alt={image.alt}
                         width={image.width}
                         height={image.height}
