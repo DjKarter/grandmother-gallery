@@ -1,0 +1,52 @@
+export const en = {
+  header: {
+    title: 'Painting Gallery',
+    subtitle: 'Click on a painting to take a closer look',
+  },
+  nav: {
+    gallery: 'Gallery',
+    about: 'About',
+    order: 'Order',
+  },
+  gallery: {
+    search: 'Search by title or description…',
+    empty: 'Nothing found for "{{query}}"',
+    errorTitle: 'Failed to load the gallery.',
+    errorHint: 'Try refreshing the page.',
+  },
+  about: {
+    name: 'Zhanna Bikmetova',
+    lead: 'A doctor by calling — an artist at heart.',
+    bio: 'Paintings created on canvas, cardboard, and other surfaces — each work is unique and carries a piece of her soul.',
+    photoAlt: 'Author among flowers',
+  },
+  order: {
+    title: 'Order a Painting',
+    name: 'Your name',
+    namePlaceholder: 'How should we address you',
+    phone: 'Phone',
+    phonePlaceholder: '+1 (999) 000-0000',
+    email: 'Email',
+    emailPlaceholder: 'your@email.com',
+    message: 'Message',
+    messagePlaceholder: 'I would like to order this painting… or another question',
+    submit: 'Send Order',
+    submitting: 'Sending…',
+    successTitle: 'Thank you for your order!',
+    successText: 'We will contact you shortly to clarify the details.',
+    backToGallery: 'Back to Gallery',
+    required: '*',
+  },
+  errors: {
+    nameMin: 'Please enter your name (at least 2 characters)',
+    phoneMin: 'Please enter a valid phone number',
+    phoneFormat: 'Digits, +, -, spaces and parentheses only',
+    emailFormat: 'Please enter a valid email',
+    submitFail: 'Failed to send. Please try again later.',
+    connection: 'Connection error. Check your internet and try again.',
+  },
+  errorBoundary: {
+    title: 'Something went wrong',
+    retry: 'Try again',
+  },
+} as const;
