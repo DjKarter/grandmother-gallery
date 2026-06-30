@@ -1,112 +1,61 @@
-import { useState, useCallback, useRef } from 'react';
-import { GalleryGrid } from './components/gallary-grid';
-import { ImageModal } from './components/image-modal';
-import { OrderPage } from './pages/order-page.tsx';
-import { AboutPage } from './pages/about-page.tsx';
+import { useCallback } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './app.css';
-import { galleryImages } from "./data/gallery-data.ts";
-import type { GalleryImage } from "./common/types";
-
-type View = 'gallery' | 'about' | 'order';
 
 function App() {
-  const [currentView, setCurrentView] = useState<View>('gallery');
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { t, i18n } = useTranslation();
 
-  const navigateTo = useCallback((view: View) => {
-    if (view === currentView) return;
-    if (transitionTimer.current) clearTimeout(transitionTimer.current);
-
-    setSelectedImageIndex(null);
-    setIsTransitioning(true);
-
-    transitionTimer.current = setTimeout(() => {
-      setCurrentView(view);
-      setIsTransitioning(false);
-    }, 220);
-  }, [currentView]);
-
-  const handleImageClick = useCallback((image: GalleryImage) => {
-    const index = galleryImages.findIndex((img) => img.id === image.id);
-    setSelectedImageIndex(index !== -1 ? index : 0);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setSelectedImageIndex(null);
-  }, []);
-
-  const handlePrev = useCallback(() => {
-    setSelectedImageIndex((prev) => {
-      if (prev !== null && prev > 0) return prev - 1;
-      return prev;
-    });
-  }, []);
-
-  const handleNext = useCallback(() => {
-    setSelectedImageIndex((prev) => {
-      if (prev !== null && prev < galleryImages.length - 1) return prev + 1;
-      return prev;
-    });
-  }, []);
+  const toggleLang = useCallback(() => {
+    const next = i18n.language === 'ru' ? 'en' : 'ru';
+    i18n.changeLanguage(next);
+    localStorage.setItem('lang', next);
+  }, [i18n]);
 
   return (
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1>Галерея живописи</h1>
+          <h1>{t('header.title')}</h1>
           <div className="header-ornament" />
-          <p className="subtitle">Нажмите на картину, чтобы рассмотреть её поближе</p>
+          <p className="subtitle">{t('header.subtitle')}</p>
           <nav className="header-nav">
-            <button
-              className={`nav-link ${currentView === 'gallery' ? 'nav-link--active' : ''}`}
-              onClick={() => navigateTo('gallery')}
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) => `nav-link${isActive ? ' nav-link--active' : ''}`}
             >
-              Галерея
-            </button>
+              {t('nav.gallery')}
+            </NavLink>
             <span className="header-nav-sep">·</span>
-            <button
-              className={`nav-link ${currentView === 'about' ? 'nav-link--active' : ''}`}
-              onClick={() => navigateTo('about')}
+            <NavLink
+              to="/about"
+              className={({ isActive }) => `nav-link${isActive ? ' nav-link--active' : ''}`}
             >
-              Об авторе
-            </button>
+              {t('nav.about')}
+            </NavLink>
             <span className="header-nav-sep">·</span>
-            <button
-              className={`nav-link nav-link--order ${currentView === 'order' ? 'nav-link--active' : ''}`}
-              onClick={() => navigateTo('order')}
+            <NavLink
+              to="/order"
+              className={({ isActive }) =>
+                `nav-link nav-link--order${isActive ? ' nav-link--active' : ''}`
+              }
             >
-              Заказать
+              {t('nav.order')}
+            </NavLink>
+            <span className="header-nav-sep">·</span>
+            <button className="nav-link lang-toggle" onClick={toggleLang} aria-label="Switch language">
+              {i18n.language === 'ru' ? 'EN' : 'RU'}
             </button>
           </nav>
         </div>
       </header>
 
-      <main className={`main-content ${isTransitioning ? 'main-content--out' : ''}`}>
-        {currentView === 'gallery' && (
-          <GalleryGrid images={galleryImages} onImageClick={handleImageClick} />
-        )}
-        {currentView === 'about' && <AboutPage />}
-        {currentView === 'order' && (
-          <OrderPage
-            onClose={() => navigateTo('gallery')}
-            selectedImage={undefined}
-          />
-        )}
+      <main className="main-content">
+        <Outlet />
       </main>
 
-      {currentView === 'gallery' && selectedImageIndex !== null && (
-        <ImageModal
-          images={galleryImages}
-          currentIndex={selectedImageIndex}
-          onClose={handleCloseModal}
-          onPrev={handlePrev}
-          onNext={handleNext}
-        />
-      )}
-
-      <footer className="footer" id="about-footer" />
+      <footer className="footer" />
     </div>
   );
 }

@@ -106,6 +106,15 @@
   transform: scaleX(1);
 }
 
+.lang-toggle {
+  color: #C47800;
+  font-weight: 800;
+}
+
+.lang-toggle:hover {
+  color: #A06000;
+}
+
 .header-nav-sep {
   color: rgba(245, 197, 24, 0.7);
   font-size: 16px;

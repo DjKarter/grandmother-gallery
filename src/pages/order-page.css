@@ -144,6 +144,17 @@
   color: #1F1A14;
 }
 
+.field-error {
+  color: #c0392b;
+  font-size: 12px;
+  margin: 0;
+}
+
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+  border-color: rgba(192, 57, 43, 0.5);
+}
+
 .order-error {
   color: #c0392b;
   font-size: 13px;

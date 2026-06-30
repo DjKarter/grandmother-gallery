@@ -14,10 +14,17 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.101.2",
+    "axios": "^1.18.1",
     "glob": "13.0.6",
+    "i18next": "^26.3.4",
     "react": "19.1.2",
     "react-dom": "19.1.2",
-    "sharp": "0.34.3"
+    "react-i18next": "^17.0.8",
+    "react-router-dom": "^7.18.1",
+    "sharp": "0.34.3",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
