@@ -55,7 +55,10 @@ function App() {
         <Outlet />
       </main>
 
-      <footer className="footer" />
+      <footer className="footer">
+        <div className="footer-ornament" />
+        <p className="footer-text">{t('footer.text')}</p>
+      </footer>
     </div>
   );
 }

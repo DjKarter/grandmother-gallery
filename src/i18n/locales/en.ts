@@ -3,6 +3,9 @@ export const en = {
     title: 'Painting Gallery',
     subtitle: 'Click on a painting to take a closer look',
   },
+  footer: {
+    text: 'Zhanna Bikmetova · Painting Gallery',
+  },
   nav: {
     gallery: 'Gallery',
     about: 'About',
