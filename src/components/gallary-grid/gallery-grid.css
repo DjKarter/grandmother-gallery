@@ -16,6 +16,7 @@
   box-shadow: 0 3px 12px rgba(31, 26, 20, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: block;
+  will-change: transform;
 }
 
 .gallery-item:hover {
