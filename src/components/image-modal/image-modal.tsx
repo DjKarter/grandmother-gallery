@@ -74,13 +74,18 @@ export const ImageModal: FC<ImageModalProps> = ({
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = currentIndex !== null ? 'hidden' : '';
+
+        // Компенсируем ширину скроллбара, чтобы контент не прыгал при его скрытии
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         };
-    }, [currentIndex, onClose, handleZoomIn, handleZoomOut]);
+    }, [onClose, handleZoomIn, handleZoomOut]);
 
     const handleNextClick = () => {
         if (!isAnimating && onNext) {
