@@ -125,21 +125,12 @@
 /* ─── Переходы между страницами ─── */
 .main-content {
   flex: 1 0 auto;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  animation: viewFadeIn 0.28s ease;
-}
-
-.main-content--out {
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
+  animation: viewFadeIn 0.22s ease;
 }
 
 @keyframes viewFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .footer {

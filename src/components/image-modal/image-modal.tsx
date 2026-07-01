@@ -1,5 +1,6 @@
 
 import {type FC, useEffect, useLayoutEffect, useState, useRef, type MouseEvent, type WheelEvent} from 'react';
+import { createPortal } from 'react-dom';
 import './image-modal.css';
 import type {ImageModalProps} from "./types.ts";
 import {getImagePaths} from "../../utils/image-paths.ts";
@@ -193,7 +194,7 @@ export const ImageModal: FC<ImageModalProps> = ({
     const isLast = currentIndex === images.length - 1;
     const progress = ((currentIndex + 1) / images.length) * 100;
 
-    return (
+    return createPortal(
         <div className="modal-overlay" onClick={onClose}>
             {/* Прогресс-бар */}
             <div className="modal-progress-bar">
@@ -295,6 +296,7 @@ export const ImageModal: FC<ImageModalProps> = ({
                 {image.description && <p className="modal-desc">{image.description}</p>}
                 <span className="modal-indicator">{currentIndex + 1} / {images.length}</span>
             </div>
-        </div>
+        </div>,
+        document.body,
     );
 };
