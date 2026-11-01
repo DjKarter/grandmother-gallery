@@ -7,6 +7,9 @@ const apiClient = axios.create({
 });
 
 export const fetchPaintings = async (): Promise<GalleryImage[]> => {
-  const { data } = await apiClient.get<GalleryImage[]>('api/paintings.json');
+  // Изменение каталога меняет URL запроса и обходит кеш прежней публикации.
+  const { data } = await apiClient.get<GalleryImage[]>('api/paintings.json', {
+    params: { v: import.meta.env.VITE_CATALOG_VERSION },
+  });
   return data;
 };
