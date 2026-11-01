@@ -43,26 +43,25 @@ src/
 ├── components/
 │   ├── gallary-grid/    # Сетка картин
 │   └── image-modal/     # Лайтбокс с навигацией
-├── data/
-│   └── gallery-data.ts  # Данные о картинах
 └── common/types/        # Общие TypeScript типы
 public/
+├── api/paintings.json   # Единственный источник каталога картин
 └── images/<name>/       # 1.webp … 4.webp для каждой картины
 ```
 
 ## Добавить новую картину
 
 1. Положить файлы в `public/images/my-painting/`: `1.png`, `1.webp` … `4.png`, `4.webp`
-2. Добавить запись в [`src/data/gallery-data.ts`](src/data/gallery-data.ts):
+2. Добавить объект в массив [`public/api/paintings.json`](public/api/paintings.json) — это единственный источник каталога картин. Использовать уникальный `id`, имя папки с изображениями в `name` и размеры исходного изображения в `width` и `height`:
 
-```ts
+```json
 {
-  id: '7',
-  name: 'my-painting',
-  width: 1800,
-  height: 1200,
-  alt: 'Название',
-  title: 'Название',
-  description: 'Описание картины',
+  "id": "8",
+  "name": "my-painting",
+  "width": 1800,
+  "height": 1200,
+  "alt": "Название",
+  "title": "Название",
+  "description": "Описание картины"
 }
 ```

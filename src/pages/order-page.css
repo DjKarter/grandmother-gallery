@@ -129,19 +129,10 @@
   cursor: not-allowed;
 }
 
-.order-btn--loading {
-  position: relative;
-  color: transparent;
-}
-
-.order-btn--loading::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1F1A14;
+.field-hint {
+  color: #6B5D3F;
+  font-size: 12px;
+  margin: 0;
 }
 
 .field-error {
